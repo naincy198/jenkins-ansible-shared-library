@@ -37,7 +37,12 @@ def call() {
     steps {
         script {
             dir('ansible-project') {
-                sh 'ansible-playbook -i env/prod/inventory env/prod/playbook.yml'
+                sh '''
+                export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH
+                which ansible-playbook
+                ansible-playbook --version
+                ansible-playbook -i env/prod/inventory env/prod/playbook.yml
+                '''
             }
         }
     }
