@@ -34,19 +34,15 @@ def call() {
             }
 
             stage('Playbook Execution') {
-                steps {
-                    script {
-
-                        echo "Executing Ansible Playbook..."
-
-                        sh """
-                        ansible-playbook ${config.CODE_BASE_PATH}/playbook.yml \
-                        -i ${config.CODE_BASE_PATH}/inventory
-                        """
-                    }
-                }
+    steps {
+        script {
+            dir('ansible-project') {
+                sh 'ansible-playbook -i env/prod/inventory env/prod/playbook.yml'
             }
-
+        }
+    }
+}
+               
             stage('Notification') {
                 steps {
 
