@@ -12,7 +12,8 @@ def call() {
                     script {
                         echo "Cloning Repository..."
 
-                        git branch: config.BRANCH,
+                        git branch: 'main',
+                            credentialsId: 'github-ssh',
                             url: config.GIT_REPO_URL
                     }
                 }
