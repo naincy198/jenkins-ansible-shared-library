@@ -8,18 +8,19 @@ def call() {
         stages {
 
             stage('Clone') {
-                steps {
-                    script {
-                        echo "Cloning Repository..."
+    steps {
+        script {
+            echo "Cloning Repository..."
 
-                        git branch: 'main',
-                            credentialsId: 'github-ssh',
-                            url: config.GIT_REPO_URL
-                    }
-                }
-            }
-
-            stage('User Approval') {
+            git branch: 'main',
+                credentialsId: 'ad97fd49-b7b6-4c1b-a4c2-dc8bc80a4d81',
+                url: config.GIT_REPO_URL
+        }
+    }
+}
+                
+                  
+           stage('User Approval') {
 
                 when {
                     expression {
