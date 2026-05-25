@@ -33,25 +33,23 @@ def call() {
                 }
             }
               stage('Playbook Execution') {
-                  steps {
-                    script {
-                        dir('ansible-project') {
-                             sh '''
-                             export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH
+    steps {
+        script {
+            sh '''
+            export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH
 
-                             pwd
-                             ls
-                             find . -name playbook.yml
+            pwd
+            ls -R
 
-                             which ansible-playbook
-                             ansible-playbook --version
+            which ansible-playbook
+            ansible-playbook --version
 
-                             ansible-playbook -i env/prod/inventory env/prod/playbook.yml
-                             '''
-                       }
-                  }
-             } 
-        }   
+            ansible-playbook -i env/prod/inventory env/prod/playbook.yml
+            '''
+        }
+    }
+} 
+           
                    
             stage('Notification') {
                 steps {
