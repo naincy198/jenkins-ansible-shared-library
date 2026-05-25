@@ -32,22 +32,27 @@ def call() {
                     input "Approve Deployment?"
                 }
             }
+              stage('Playbook Execution') {
+                  steps {
+                    script {
+                        dir('ansible-project') {
+                             sh '''
+                             export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH
 
-            stage('Playbook Execution') {
-    steps {
-        script {
-            dir('ansible-project') {
-                sh '''
-                export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH
-                which ansible-playbook
-                ansible-playbook --version
-                ansible-playbook -i env/prod/inventory env/prod/playbook.yml
-                '''
-            }
-        }
-    }
-}
-               
+                             pwd
+                             ls
+                             find . -name playbook.yml
+
+                             which ansible-playbook
+                             ansible-playbook --version
+
+                             ansible-playbook -i env/prod/inventory env/prod/playbook.yml
+                             '''
+                       }
+                  }
+             } 
+        }   
+                   
             stage('Notification') {
                 steps {
 
